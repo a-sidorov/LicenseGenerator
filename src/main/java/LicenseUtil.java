@@ -2,6 +2,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import exception.LicenseKeyException;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -131,10 +132,15 @@ public class LicenseUtil {
             decode.init(Cipher.DECRYPT_MODE, privateKey);
             encode.init(Cipher.ENCRYPT_MODE, publicKey);
 
-            encode.update("Verified".getBytes(StandardCharsets.UTF_8));
+            int length = 100;
+            boolean useLetters = true;
+            boolean useNumbers = false;
+            String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
+
+            encode.update(generatedString.getBytes(StandardCharsets.UTF_8));
             decode.update(encode.doFinal());
 
-            return "Verified".equals(new String(decode.doFinal(), StandardCharsets.UTF_8));
+            return generatedString.equals(new String(decode.doFinal(), StandardCharsets.UTF_8));
         } catch (Exception e) {
             throw new LicenseKeyException(e);
         }

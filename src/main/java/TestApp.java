@@ -1,10 +1,10 @@
 public class TestApp {
     public static void main(String[] args) throws Exception {
-        License license = LicenseUtil.generateLicense(360L);
+        License license = LicenseUtil.generateLicense(360L, 1L);
 
 
 
-        var licenseString = LicenseUtil.generateLicenseString(license);
+        var licenseString= LicenseUtil.generateLicenseString(license);
 
         var test = LicenseUtil.getLicenseFromString(licenseString);
 

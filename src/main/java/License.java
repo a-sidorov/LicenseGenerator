@@ -26,5 +26,6 @@ public class License {
 
     private final Long userID;
 
+    @Expose
     private final String type;
 }
